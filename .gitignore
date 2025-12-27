@@ -116,3 +116,6 @@ venv.bak/
 # Project-specific
 # Keep dist/ for distribution
 # Keep build/ for temporary build files
+
+dist
+build

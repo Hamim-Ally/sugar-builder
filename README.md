@@ -16,32 +16,29 @@ SugarBuilder is a lightweight build system that lets you compile C++ projects wi
 
 ## Quick Start
 
-### Windows (Using Standalone Executable)
-
-```powershell
-# Clone the repository
-git clone https://github.com/Hamim-Ally/sugar-builder.git
-cd sugar-builder
-
-# Build a project
-.\sugar-builder.bat build
-
-# Or use the executable directly
-.\dist\sugar-builder.exe build
-```
-
-### Linux/macOS (Using Python)
+### All Platforms (Using Python)
 
 ```bash
 # Setup
 git clone https://github.com/Hamim-Ally/sugar-builder.git
 cd sugar-builder
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # Build a project
-python -m sugar_builder build
+python -m src build
+
+# Validate configuration
+python -m src configure
+```
+
+### Windows Setup Script
+
+Alternatively, use the interactive setup script:
+
+```powershell
+.\setup.ps1
 ```
 
 ## Configuration (sugar.toml)
@@ -68,28 +65,28 @@ output_path = "bin"               # Executable/library output
 
 ## Commands
 
-```powershell
+```bash
 # Validate configuration
-sugar-builder.bat configure
+python -m src configure
 
 # Build the project
-sugar-builder.bat build
+python -m src build
 
 # Build with custom config
-sugar-builder.bat build --config custom.toml
+python -m src build --config custom.toml
 
 # Show help
-sugar-builder.bat --help
+python -m src --help
 ```
 
 ## Example Project
 
 The repository includes a working `Calculator` example:
 
-```powershell
+```bash
 cd example
-..\sugar-builder.bat build
-.\bin\Calculator.exe
+python -m src build
+# Run the generated executable (location depends on OS and compiler)
 ```
 
 Output:
@@ -105,17 +102,21 @@ Output:
 Program completed successfully!
 ================================
 ```
+10 - 5 = 5
+10 * 5 = 50
+10 / 5 = 2
+================================
+Program completed successfully!
+================================
+```
 
 ## Project Structure
 
 ```
 sugar-builder/
-├── dist/
-│   └── sugar-builder.exe         # Standalone Windows executable
-├── sugar-builder.bat             # Batch wrapper script
-├── build_exe.py                  # Script to build the .exe
-├── sugar_builder/                # Python package
+├── src/                          # Python package
 │   ├── __main__.py              # CLI entry point
+│   ├── main.py                  # Legacy entry point
 │   ├── core/                    # Core functionality
 │   │   ├── config.py            # TOML configuration loader
 │   │   ├── project.py           # Project management
@@ -128,13 +129,17 @@ sugar-builder/
 │   ├── platforms/               # Platform abstractions
 │   │   └── base.py              # Platform interface
 │   └── commands/                # CLI commands
+│       ├── base.py              # Base command class
 │       ├── configure.py         # Validate config
 │       └── build.py             # Build project
 ├── example/                      # Working example project
 │   ├── src/                     # C++ source files
 │   ├── sugar.toml               # Configuration
 │   └── README.md                # Example instructions
-└── docs/                        # Documentation
+├── docs/                        # Documentation
+├── setup.ps1                    # Interactive setup script (Windows)
+├── requirements.txt             # Python dependencies
+└── LICENSE                      # MIT License
 ```
 
 ## Compiler Auto-Detection
@@ -150,21 +155,29 @@ sugar-builder/
 
 ## Requirements
 
-- **Windows**: Visual Studio 2019+ with MSVC
+- **Windows**: Visual Studio 2019+ with MSVC (optional, GCC/Clang also supported)
 - **Linux**: GCC 9+ or Clang 10+
 - **macOS**: Xcode Command Line Tools
-- **Python** (optional, only needed if building from source or on Linux/macOS)
+- **Python**: Python 3.10+ (required for building from source)
 
 ## Building from Source
 
-To build the Windows executable yourself:
+To build and develop SugarBuilder:
 
-```powershell
+```bash
+# Clone and setup
+git clone https://github.com/Hamim-Ally/sugar-builder.git
 cd sugar-builder
-.\.venv\Scripts\python.exe build_exe.py
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
-This creates `dist/sugar-builder.exe` using PyInstaller.
+Then run the project directly:
+
+```bash
+python -m src build example/sugar.toml
+```
 
 ## Development
 
@@ -175,18 +188,18 @@ This creates `dist/sugar-builder.exe` using PyInstaller.
 git clone https://github.com/Hamim-Ally/sugar-builder.git
 cd sugar-builder
 python3 -m venv venv
-source venv/bin/activate  # On Windows: .venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Running Tests
+### Running Commands
 
 ```bash
 # Test configuration loading
-python -m sugar_builder configure example/sugar.toml
+python -m src configure example/sugar.toml
 
-# Build the example
-python -m sugar_builder build example/sugar.toml
+# Build the example project
+python -m src build example/sugar.toml
 ```
 
 ### Code Quality
