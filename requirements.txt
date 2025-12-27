@@ -1,0 +1,21 @@
+# SugarBuilder Requirements
+# Python 3.10+ supported
+
+# Core Dependencies
+# For Python 3.10: requires tomli for TOML parsing
+# For Python 3.11+: uses built-in tomllib
+tomli>=2.0.0;python_version<"3.11"
+
+# Build and Packaging
+PyInstaller>=6.0.0
+
+# Development Dependencies (optional)
+# Uncomment below for development:
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0
+
+
+

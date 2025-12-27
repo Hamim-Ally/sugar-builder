@@ -1,0 +1,17 @@
+# SugarBuilder Configuration for Calculator Example
+
+# Project metadata
+project_name = "Calculator"
+project_type = "exe"              # Create an executable
+
+# Compilation settings
+compiler = "MSVC"                  # Use MSVC compiler (can be MSVC, GCC or Clang)
+platform = "Windows"               # Target Windows (can be Windows, Linux or macOS)
+
+# Source and output directories (relative to this directory)
+source_paths = ["src"]            # C++ source files are in ./src/
+build_path = "build"              # Put object files in ./build/
+output_path = "bin"               # Put executable in ./bin/
+
+# Optional: libraries to link against
+# link_dependencies = []

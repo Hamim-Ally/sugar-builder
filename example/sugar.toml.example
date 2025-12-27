@@ -1,0 +1,17 @@
+# Example sugar.toml configuration for SugarBuilder
+
+# Project metadata
+project_name = "MyApp"
+project_type = "exe"  # exe, static, or shared
+
+# Compiler and platform
+compiler = "GCC"      # MSVC, GCC, or Clang
+platform = "Linux"    # Windows, Linux, or macOS
+
+# Source and output paths (relative to project root)
+source_paths = ["src", "lib"]
+build_path = "build"
+output_path = "bin"
+
+# Link dependencies (optional)
+link_dependencies = ["m", "pthread"]
